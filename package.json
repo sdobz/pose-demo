@@ -6,12 +6,19 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@mediapipe/pose": "~0.4.0",
     "@mui/material": "latest",
+    "@tensorflow-models/pose-detection": "^2.0.0",
+    "@tensorflow/tfjs-backend-wasm": "^3.8.0",
+    "@tensorflow/tfjs-backend-webgl": "^3.8.0",
+    "@tensorflow/tfjs-converter": "^3.8.0",
+    "@tensorflow/tfjs-core": "^3.8.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
+    "scatter-gl": "0.0.8",
     "typescript": "latest"
   },
   "scripts": {
@@ -35,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.6.2"
   }
 }

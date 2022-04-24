@@ -15,8 +15,8 @@ Requirements were transmitted via email as a gdoc and include 6 main features an
 
 Technical requiremetns:
 
-* Authentication via firebase
-* Storage in firestore
+- Authentication via firebase
+- Storage in firestore
 
 Initial impressions is that this represents over 8 hours of work to get in a polished state.
 
@@ -25,12 +25,13 @@ Initial impressions is that this represents over 8 hours of work to get in a pol
 Built on top of firebase and react as it is what I am most familiar with. Single page app so that I do not have to think about servers and can use the react dev server.
 
 Core libraries:
-* Typescript - types are beautiful and fun. also make the computer do as much work verifying code as possible
-* yarn - it's faster and the lockfile is more sane
-* React - reactive design is amazing, of course everything should derive deterministically from easy to reason about state
-* create react app - start fast
-* React-router - familiar
-* Material-ui - 12 columns pls, real projects should use all custom css but let's start simple
+
+- Typescript - types are beautiful and fun. also make the computer do as much work verifying code as possible
+- yarn - it's faster and the lockfile is more sane
+- React - reactive design is amazing, of course everything should derive deterministically from easy to reason about state
+- create react app - start fast
+- React-router - familiar
+- Material-ui - 12 columns pls, real projects should use all custom css but let's start simple
 
 ## File structure
 
@@ -42,7 +43,7 @@ Use material UI as it provides a 12 column layout and is widely used and is a go
 
 ## Running notes
 
-No code is created in isolation, I am going to do whatever is most expedient. Unfortunately I have strong code opinions and will probably write an unfortunate amount of code myself. It's gotta be *beautiful* yaknow
+No code is created in isolation, I am going to do whatever is most expedient. Unfortunately I have strong code opinions and will probably write an unfortunate amount of code myself. It's gotta be _beautiful_ yaknow
 
 ### Bootstrap
 
@@ -56,7 +57,7 @@ Oh no my node is v14 yarn requires v16 and my brew install is broken. Fixfixfix,
 
 ### Publishing
 
-Okay, let's **get it deployed**. The goal is a really ergonomic review experience, I've reviewed these projects myself and it puts me in a sour mood if it takes too much effort to see it. Goal: https://some-url.github.io/ and it *just works*
+Okay, let's **get it deployed**. The goal is a really ergonomic review experience, I've reviewed these projects myself and it puts me in a sour mood if it takes too much effort to see it. Goal: https://some-url.github.io/ and it _just works_
 
 Okay, technical issue: github pages does not easily support routing. Yurk, okay I will not use any routing.
 
@@ -66,7 +67,7 @@ Following tutorial [here](https://medium.com/@itspaulolimahimself/deploying-a-re
 
 gh-pages isn't cooperating. timebox: 5 minutes. Why is it 404ing?
 
-*aside* - I am working on setting up my dev-loop of build to publish very early, this is a platform role and it's what I'm passionate about
+_aside_ - I am working on setting up my dev-loop of build to publish very early, this is a platform role and it's what I'm passionate about
 
 Hmn, it looks like I need to do some settings stuff. let's see... [ah yep](https://github.com/sdobz/pose-demo/settings/pages)
 
@@ -80,15 +81,27 @@ An example pose detection library was provided, let's get it embedded
 
 Ugh wow this isn't going to be trival. First let's just copy the `src` folder into this repo, a quick `LICENSE` check indicates that I can copy thier code as long as I preserve the license. Adding a README and LICENSE to indicate this...
 
+First a clean commit of vendored code so I can monitor the exact changes I make. Next copy all of their deps into our package. Unfortunately one of their dependencies is the `pose-detection` relative folder, let's see if it is on NPM otherwise this will get hairy. `@tensorflow-models/pose-detection` nice
 
+`index.js` should show me how this app is embedded in an html page. Hmn, it just runs `app()` at the bottom so it's probably in `public/index.html`
+
+EEEGAD I need auto formatting. I should never ever have to think about how code is formatted. Installing `prettier`...
+
+Okay the demo requires some parameters that come in through the url, `type` and `model`
+
+Let's mock them out and pass in as a function parameter rather than a urlparam
+
+> ReferenceError: dat is not defined
+
+Ah right there was some library embedded in html, let's see if I can pull it in
 
 ## Timing
 
-This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a *working* demonstration. Thus priorities are quality first, then time, then scope.
+This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a _working_ demonstration. Thus priorities are quality first, then time, then scope.
 
-* `2022-04-22 - 15:00` - Requirements recieved
-* `2022-04-24 - 12:15` - Planning begins (this doc)
-* `           - 12:30` - `git init` and `npm` setup
-* `           - 12:45` - Clone of example
-* `           - 13:00` - clone complete, project bootstrapped let's get developing
-* `           - 13:15` - Deployment complete, first feature starting
+- `2022-04-22 - 15:00` - Requirements recieved
+- `2022-04-24 - 12:15` - Planning begins (this doc)
+- ` - 12:30` - `git init` and `npm` setup
+- ` - 12:45` - Clone of example
+- ` - 13:00` - clone complete, project bootstrapped let's get developing
+- ` - 13:15` - Deployment complete, first feature starting

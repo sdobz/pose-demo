@@ -15,6 +15,11 @@
  * =============================================================================
  */
 
+/**
+ * Modifications made 2022-04-24 - vincent@khougaz.com
+ * See commits
+ */
+
 import '@tensorflow/tfjs-backend-webgl';
 import * as mpPose from '@mediapipe/pose';
 
@@ -185,9 +190,7 @@ async function renderPrediction() {
   rafId = requestAnimationFrame(renderPrediction);
 };
 
-async function app() {
-  // Gui content will change depending on which model is in the query string.
-  const urlParams = new URLSearchParams(window.location.search);
+export async function app(urlParams) {
   if (!urlParams.has('model')) {
     alert('Cannot find model in the query string.');
     return;
@@ -205,5 +208,3 @@ async function app() {
 
   renderPrediction();
 };
-
-app();
