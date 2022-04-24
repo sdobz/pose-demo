@@ -44,13 +44,17 @@ Use material UI as it provides a 12 column layout and is widely used and is a go
 
 No code is created in isolation, I am going to do whatever is most expedient. Unfortunately I have strong code opinions and will probably write an unfortunate amount of code myself. It's gotta be *beautiful* yaknow
 
+### Bootstrap
+
 I know that there is a project bootstrap tool called `create-react-app` and I know there are tons of examples available. A google search for `create react app typescript react router material ui template` reveals a nice [example project](https://github.com/mui/material-ui/tree/master/examples/create-react-app-with-typescript) let's start with a copy of that
 
 **First speedbump!**
 
 Oh no my node is v14 yarn requires v16 and my brew install is broken. Fixfixfix, if this takes too long do not use yarn. While git is gitting use this opportunity to walk around and stretch. ~8min timebox. Whew issue sorted
 
-`npm start` - this is taking an unfortunate amount of time. Gosh I dislike the node ecosystem, it is so chunky
+`npm start` - this is taking an unfortunate amount of time. Gosh I dislike the node ecosystem, it is so chunky. Okay working!
+
+### Publishing
 
 Okay, let's **get it deployed**. The goal is a really ergonomic review experience, I've reviewed these projects myself and it puts me in a sour mood if it takes too much effort to see it. Goal: https://some-url.github.io/ and it *just works*
 
@@ -58,7 +62,17 @@ Okay, technical issue: github pages does not easily support routing. Yurk, okay 
 
 Following tutorial [here](https://medium.com/@itspaulolimahimself/deploying-a-react-js-spa-app-to-github-pages-58ddaa2897a3)
 
+**second speedbump**
 
+gh-pages isn't cooperating. timebox: 5 minutes. Why is it 404ing?
+
+*aside* - I am working on setting up my dev-loop of build to publish very early, this is a platform role and it's what I'm passionate about
+
+Hmn, it looks like I need to do some settings stuff. let's see... [ah yep](https://github.com/sdobz/pose-demo/settings/pages)
+
+> Note: It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub.
+
+Okay patience.
 
 ## Timing
 
