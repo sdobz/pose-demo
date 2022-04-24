@@ -1,10 +1,10 @@
-## Vifive Demo Project
+## Pose estimation Demo Project
 
 Hello code reviewers! This project is intended to show my coding style and process, as well as to prove that I am able to take high level requirements and translate them into code. This document serves a linear stream of consciousness log describing my thought process.
 
 ## Requirements
 
-[Requirements](https://docs.google.com/document/d/1aT1fkeq2yLHYxrjT63eofueMc0Rbv6Y4tUDibxEeg38/edit) were transmitted via email as a gdoc and include 6 main features and two technical requirements. I have prioritizerd them, features will be cut from the bottom if time requires:
+Requirements were transmitted via email as a gdoc and include 6 main features and two technical requirements. I have prioritizerd them, features will be cut from the bottom if time requires:
 
 1. Skeletal drawing
 2. See list of exercises
@@ -18,16 +18,19 @@ Technical requiremetns:
 * Authentication via firebase
 * Storage in firestore
 
+Initial impressions is that this represents over 8 hours of work to get in a polished state.
+
 ## Architecture
 
 Built on top of firebase and react as it is what I am most familiar with. Single page app so that I do not have to think about servers and can use the react dev server.
 
 Core libraries:
-* Typescript
-* React
-* create react app
-* React-router
-* Material-ui
+* Typescript - types are beautiful and fun. also make the computer do as much work verifying code as possible
+* yarn - it's faster and the lockfile is more sane
+* React - reactive design is amazing, of course everything should derive deterministically from easy to reason about state
+* create react app - start fast
+* React-router - familiar
+* Material-ui - 12 columns pls, real projects should use all custom css but let's start simple
 
 ## File structure
 
@@ -37,9 +40,23 @@ Use standard `create-react-app`, attempt to use one file per feature with one "m
 
 Use material UI as it provides a 12 column layout and is widely used and is a google product and vifive seems to use google products (in the absence of strong technical requirements use whatever criteria reduces the solution space most rapidly)
 
-## Resources
+## Running notes
 
 No code is created in isolation, I am going to do whatever is most expedient. Unfortunately I have strong code opinions and will probably write an unfortunate amount of code myself. It's gotta be *beautiful* yaknow
+
+I know that there is a project bootstrap tool called `create-react-app` and I know there are tons of examples available. A google search for `create react app typescript react router material ui template` reveals a nice [example project](https://github.com/mui/material-ui/tree/master/examples/create-react-app-with-typescript) let's start with a copy of that
+
+**First speedbump!**
+
+Oh no my node is v14 yarn requires v16 and my brew install is broken. Fixfixfix, if this takes too long do not use yarn. While git is gitting use this opportunity to walk around and stretch. ~8min timebox. Whew issue sorted
+
+`npm start` - this is taking an unfortunate amount of time. Gosh I dislike the node ecosystem, it is so chunky
+
+Okay, let's **get it deployed**. The goal is a really ergonomic review experience, I've reviewed these projects myself and it puts me in a sour mood if it takes too much effort to see it. Goal: https://some-url.github.io/ and it *just works*
+
+Okay, technical issue: github pages does not easily support routing. Yurk, okay I will not use any routing.
+
+Following tutorial [here](https://medium.com/@itspaulolimahimself/deploying-a-react-js-spa-app-to-github-pages-58ddaa2897a3)
 
 
 
@@ -50,3 +67,5 @@ This project is intended to take no more than 4 hours, though I care about quali
 * `2022-04-22 - 15:00` - Requirements recieved
 * `2022-04-24 - 12:15` - Planning begins (this doc)
 * `           - 12:30` - `git init` and `npm` setup
+* `           - 12:45` - Clone of example
+* `           - 13:00` - clone complete, project bootstrapped let's get developing
