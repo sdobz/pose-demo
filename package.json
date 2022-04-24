@@ -15,10 +15,13 @@
     "@tensorflow/tfjs-core": "^3.8.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "dat.gui": "0.7.6",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
     "scatter-gl": "0.0.8",
+    "stats-js": "1.0.1",
+    "three": "0.109",
     "typescript": "latest"
   },
   "scripts": {

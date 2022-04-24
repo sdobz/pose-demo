@@ -14,6 +14,14 @@
  * limitations under the License.
  * =============================================================================
  */
+
+/**
+ * Modifications made 2022-04-24 - vincent@khougaz.com
+ * See commits
+ */
+
+import Stats from 'stats-js'
+
 export function setupStats() {
   const stats = new Stats();
   stats.customFpsPanel = stats.addPanel(new Stats.Panel('FPS', '#0ff', '#002'));

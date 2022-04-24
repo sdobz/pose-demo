@@ -91,9 +91,15 @@ Okay the demo requires some parameters that come in through the url, `type` and 
 
 Let's mock them out and pass in as a function parameter rather than a urlparam
 
-> ReferenceError: dat is not defined
+> `ReferenceError: dat is not defined`
 
-Ah right there was some library embedded in html, let's see if I can pull it in
+Ah right there was some library embedded in index.html, let's see if I can pull it in. [`dat.gui@0.7.6`](https://github.com/dataarts/dat.gui) and [`statsjs@r16`](https://github.com/mrdoob/stats.js/) - can't find exact stats version so use `1.0.1`
+
+A cleanup function was added so it didn't add redundant overlays during hot-reload operations
+
+> three.module.js:49338 THREE.BufferGeometry: .addAttribute() has been renamed to .setAttribute().
+
+This is irritating and spamming the console and is in a transitive dependency, let's downgrade three until it goes away. Using the url structure `https://github.com/mrdoob/three.js/blob/r113/src/Three.Legacy.js` we can keep changing the tag `r113` to binary search until `addAttribute` no longer appears
 
 ## Timing
 

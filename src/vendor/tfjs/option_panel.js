@@ -14,10 +14,18 @@
  * limitations under the License.
  * =============================================================================
  */
+
+/**
+ * Modifications made 2022-04-24 - vincent@khougaz.com
+ * See commits
+ */
+
 import * as posedetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 
 import * as params from './params';
+
+import * as dat from 'dat.gui'
 
 /**
  * Records each flag's default value under the runtime environment and is a

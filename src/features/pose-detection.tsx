@@ -50,10 +50,17 @@ export function PoseDetector(props: PoseDetectionParams) {
       await app(paramMap);
       console.log("[pose-detection] done");
     }, 10);
+
+    return () => {
+      // A panel with the id "gui" is created, remove it on un-mount
+
+      document.getElementById("gui")?.remove();
+    };
   }, []);
 
   return (
     <Box>
+      <div id="stats" />
       <div className="canvas-wrapper">
         <canvas id="output"></canvas>
         <video
