@@ -3,6 +3,8 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import { PoseDetector } from "./features/pose-detection";
+import { useFirebase } from "./features/firebase";
+import { AuthDisplay } from "./features/authentication";
 
 function Publishment() {
   return (
@@ -13,9 +15,13 @@ function Publishment() {
 }
 
 export default function App() {
+  // This state is shared so it is owned by App
+  const { authState, authService } = useFirebase();
+
   return (
-    <Container maxWidth="sm">
-      <PoseDetector model="posenet" type={undefined} />
+    <Container maxWidth="sm" sx={{ p: 2 }}>
+      <AuthDisplay authState={authState} authService={authService} />
+      {/* <PoseDetector model="posenet" type={undefined} /> */}
       <Box sx={{ my: 4 }}>
         <Publishment />
       </Box>

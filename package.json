@@ -16,6 +16,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "dat.gui": "0.7.6",
+    "firebase": "^9.6.11",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",

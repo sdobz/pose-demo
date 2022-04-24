@@ -111,6 +111,28 @@ Additionally react seems to have changed their root mounting, fixing that warnin
 
 Still not deployed, there is some issue with gh-pages setup. Ah! it appears to be trying to build it as jekyll, let's add a .nojekyll file and try again.
 
+WOOT confirmed deployed!
+
+### Feature 2: firebase login
+
+First let's find some example code to crib from [`react firebase authentication boilerplate`](https://github.com/SamuelPinho/react-firebase-auth-boilerplate)
+
+LICENSE check... none. And 2 years old. Ugh, let's just do the react stuff from memory and follow an [official example](https://firebase.google.com/docs/auth/web/start)
+
+Created project https://console.firebase.google.com/project/pose-demo-5f5fc/overview
+
+#### Services configuration
+
+Okay, auth is going to be a cross cutting concern used by several features. One goal is to never import from parents, it ENSURES good encapsulation.
+
+A common way to implement this is to have everything define its own version of a "service" and use interfaces to ensure it matches expectations
+
+I will encapsulate all state and services in `features/firebase-auth/core.ts` - the extension prevents any UI and I will exclusively import firebase auth in this directory.
+
+The forms are cribbed from [this example code](https://onestepcode.com/creating-a-material-ui-form/)
+
+This is some nice programming-as-fast-as-I-can-type code
+
 ## Timing
 
 This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a _working_ demonstration. Thus priorities are quality first, then time, then scope.
