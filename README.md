@@ -97,9 +97,15 @@ Ah right there was some library embedded in index.html, let's see if I can pull 
 
 A cleanup function was added so it didn't add redundant overlays during hot-reload operations
 
+#### Cleaning up warnings
+
 > three.module.js:49338 THREE.BufferGeometry: .addAttribute() has been renamed to .setAttribute().
 
-This is irritating and spamming the console and is in a transitive dependency, let's downgrade three until it goes away. Using the url structure `https://github.com/mrdoob/three.js/blob/r113/src/Three.Legacy.js` we can keep changing the tag `r113` to binary search until `addAttribute` no longer appears
+This is irritating and spamming the console and is in a transitive dependency, let's downgrade three until it goes away. Using the url structure `https://github.com/mrdoob/three.js/blob/r113/src/Three.Legacy.js` we can keep changing the tag `r113` to binary search until `addAttribute` no longer appears. It is not present in `r109` and it is present in `r110` - thus let's downgrade to `0.109`
+
+> ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it’s running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
+
+Additionally react seems to have changed their root mounting, fixing that warning too.
 
 ## Timing
 
