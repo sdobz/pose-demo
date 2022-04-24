@@ -107,6 +107,10 @@ This is irritating and spamming the console and is in a transitive dependency, l
 
 Additionally react seems to have changed their root mounting, fixing that warning too.
 
+#### Deployment checking
+
+Still not deployed, there is some issue with gh-pages setup. Ah! it appears to be trying to build it as jekyll, let's add a .nojekyll file and try again.
+
 ## Timing
 
 This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a _working_ demonstration. Thus priorities are quality first, then time, then scope.
@@ -116,4 +120,5 @@ This project is intended to take no more than 4 hours, though I care about quali
 - ` - 12:30` - `git init` and `npm` setup
 - ` - 12:45` - Clone of example
 - ` - 13:00` - clone complete, project bootstrapped let's get developing
-- ` - 13:15` - Deployment complete, first feature starting
+- ` - 13:15` - Deployment (in)complete, skipping due to time box. first feature starting
+- ` - 14:45` - Finished embedding pose demo, took 1.5 hrs (not surprising). second feature starting
