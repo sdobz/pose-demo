@@ -3,18 +3,11 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import ProTip from './ProTip';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
+function Publishment() {
+  return <Box sx={{my: 2}}>
+    See <Link href="https://github.com/sdobz/pose-demo">the source code</Link>
+  </Box>
 }
 
 export default function App() {
@@ -24,8 +17,7 @@ export default function App() {
         <Typography variant="h4" component="h1" gutterBottom>
           Create React App example with TypeScript
         </Typography>
-        <ProTip />
-        <Copyright />
+        <Publishment />
       </Box>
     </Container>
   );

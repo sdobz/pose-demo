@@ -74,6 +74,14 @@ Hmn, it looks like I need to do some settings stuff. let's see... [ah yep](https
 
 Okay patience.
 
+### Feature 1: pose estimation
+
+An example pose detection library was provided, let's get it embedded
+
+Ugh wow this isn't going to be trival. First let's just copy the `src` folder into this repo, a quick `LICENSE` check indicates that I can copy thier code as long as I preserve the license. Adding a README and LICENSE to indicate this...
+
+
+
 ## Timing
 
 This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a *working* demonstration. Thus priorities are quality first, then time, then scope.
@@ -83,3 +91,4 @@ This project is intended to take no more than 4 hours, though I care about quali
 * `           - 12:30` - `git init` and `npm` setup
 * `           - 12:45` - Clone of example
 * `           - 13:00` - clone complete, project bootstrapped let's get developing
+* `           - 13:15` - Deployment complete, first feature starting
