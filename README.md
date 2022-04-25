@@ -157,7 +157,19 @@ This was fairly easy, I found the code that drew keyframes and added a lil hook 
 
 This is a less than optimal integration, but if this was going to be done _for real_ the non-react portion would be rewritten
 
-### Feature 5: storing poses
+### Feature 5: storing exercise logs
+
+Overt time! Removing all partial progress, just going to type out the plan here:
+
+The resource system needs to be simplified so it can handle more types of resources. An abstraction around the "loadExercises" might do it
+
+Shared data is iffy, such as passing the user around. An option is to use Contexts for the various "services" so they don't have to be threaded quite as far
+
+A function called `loadLog(uid, exerciseId)` can be created to query the `log` collection for all data for that user/exercise combination
+
+A function called `storeLog(uid, logData)` can be created to append data to to the `log` collection
+
+The exercise page can contain a summary of the exercise log, with a modal to show the full results
 
 ## Timing
 
@@ -173,3 +185,4 @@ This project is intended to take no more than 4 hours, though I care about quali
 - ` - 16:30` - Finished firebase auth. Lots of time spent refactoring to get the service architecture right. third feature!
 - ` - 18:15` - Finished fetching exercises, really spent too much time here fiddling with Resources. starting capture
 - ` - 19:00` - Finished capturing a pose
+- ` - 19:30` - Typing out notes and adjusting styling

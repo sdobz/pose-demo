@@ -3,6 +3,7 @@ import { ResourceService, ResourceState, Exercise, isSuccess } from "../core";
 import { NotSuccess } from "./resource";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { PoseDetector } from "./pose-detection";
 
@@ -82,14 +83,14 @@ function ExerciseList({
   setExerciseId: (i: number) => void;
 }) {
   return (
-    <Grid container spacing={2}>
+    <Stack spacing={2}>
       {exercises.map((exercise, i) => (
-        <Grid item key={exercise.id}>
-          <ExercisePreview exercise={exercise} />
+        <Stack direction="row" key={exercise.id}>
           <Button onClick={() => setExerciseId(i)}>Begin Exercise</Button>
-        </Grid>
+          <ExercisePreview exercise={exercise} />
+        </Stack>
       ))}
-    </Grid>
+    </Stack>
   );
 }
 

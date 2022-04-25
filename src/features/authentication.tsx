@@ -77,7 +77,7 @@ export function AuthForm({ authService, authState }: AuthProps) {
           <Button onClick={() => authService.register(email, password)}>
             Register
           </Button>
-          <Button onClick={fillTestCreds}>Test Credentials</Button>
+          <Button onClick={fillTestCreds}>Fill Test Credentials</Button>
         </ButtonGroup>
       </FormGroup>
     </Box>
