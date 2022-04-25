@@ -19,7 +19,9 @@ limitations under the License.
  */
 
 import Box from "@mui/material/Box";
-import React, { useEffect } from "react";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import React, { useEffect, useState } from "react";
 
 import { app } from "../vendor/tfjs/index";
 
@@ -38,7 +40,13 @@ type PoseDetectionParams =
       type: "full" | "lite" | "heavy";
     };
 
-export function PoseDetector(props: PoseDetectionParams) {
+interface PoseDetectorProps {
+  onCapture: (data: any) => void;
+}
+
+export function PoseDetector(props: PoseDetectorProps & PoseDetectionParams) {
+  const [timer, setTimer] = useState<number | null>(null);
+
   useEffect(() => {
     const paramMap = new Map();
     paramMap.set("model", props.model);
@@ -58,6 +66,31 @@ export function PoseDetector(props: PoseDetectionParams) {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((curTimer) => {
+        if (curTimer === null) {
+          return null;
+        }
+
+        if (curTimer > 0) {
+          return curTimer - 1;
+        }
+
+        if (curTimer <= 0) {
+          // @ts-ignore - this is pretty hacky, but very expedient
+          window.captureSkeleton = props.onCapture;
+        }
+        return null;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  function onStartCapture() {
+    setTimer(3);
+  }
+
   return (
     <Box>
       <div id="stats" />
@@ -75,6 +108,11 @@ export function PoseDetector(props: PoseDetectionParams) {
         ></video>
       </div>
       <div id="scatter-gl-container"></div>
+      {timer === null ? (
+        <Button onClick={onStartCapture}>Capture</Button>
+      ) : (
+        <Alert severity="info">Capturing pose in {timer}...</Alert>
+      )}
     </Box>
   );
 }

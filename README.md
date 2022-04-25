@@ -151,6 +151,14 @@ I've found it convenient to store network types as "Resources" with a non-overla
 
 Well this is embarrassing, I was querying for `exercises` and the collection was named `exercise`. Let's not admit how much time was lost here.
 
+### Feature 4: capturing poses
+
+This was fairly easy, I found the code that drew keyframes and added a lil hook that checked for a global function, and if found slammed all of the keypoints into it
+
+This is a less than optimal integration, but if this was going to be done _for real_ the non-react portion would be rewritten
+
+### Feature 5: storing poses
+
 ## Timing
 
 This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a _working_ demonstration. Thus priorities are quality first, then time, then scope.
@@ -163,4 +171,5 @@ This project is intended to take no more than 4 hours, though I care about quali
 - ` - 13:15` - Deployment (in)complete, skipping due to time box. first feature starting
 - ` - 14:45` - Finished embedding pose demo, took 1.5 hrs (not surprising). second feature starting
 - ` - 16:30` - Finished firebase auth. Lots of time spent refactoring to get the service architecture right. third feature!
-- ` - 18:15` - Finished fetching exercises, really spent too much time here
+- ` - 18:15` - Finished fetching exercises, really spent too much time here fiddling with Resources. starting capture
+- ` - 19:00` - Finished capturing a pose

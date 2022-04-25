@@ -5,7 +5,7 @@ import Link from "@mui/material/Link";
 import { PoseDetector } from "./features/pose-detection";
 import { useFirebase } from "./features/firebase";
 import { AuthDisplay } from "./features/authentication";
-import { ExerciseSelector } from "./features/exercise";
+import { ExerciseManager } from "./features/exercise";
 
 function Publishment() {
   return (
@@ -26,7 +26,7 @@ export default function App() {
     <Container maxWidth="sm" sx={{ p: 2, gap: 2 }}>
       <AuthDisplay authState={authState} authService={authService} />
       {loggedIn ? (
-        <ExerciseSelector
+        <ExerciseManager
           resourceState={resourceState}
           resourceService={resourceService}
         />

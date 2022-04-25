@@ -205,6 +205,11 @@ export class Camera {
    * @param keypoints A list of keypoints.
    */
   drawSkeleton(keypoints, poseId) {
+    if (window.captureSkeleton) {
+      window.captureSkeleton({keypoints, poseId});
+      window.captureSkeleton = null;
+    }
+
     // Each poseId is mapped to a color in the color palette.
     const color = params.STATE.modelConfig.enableTracking && poseId != null ?
         COLOR_PALETTE[poseId % 20] :
