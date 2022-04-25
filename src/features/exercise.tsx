@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 
-import { Exercise, isSuccess, useAppContext } from "../core";
+import { Exercise, getUid, isSuccess, useAppContext } from "../core";
 import { NotSuccess } from "./resource";
 import { PoseDetector } from "./pose-detection";
 
@@ -41,6 +42,15 @@ function PerformExercise({
   exercise,
 }: ExerciseProps & { exercise: Exercise; onCancel: () => void }) {
   const [poseCapture, setPoseCapture] = useState<any>(null);
+  const { resourceService, authState } = useAppContext();
+  const uid = getUid(authState);
+
+  // type issue: must check uid. note useResource limitation: can't skip queries
+  const logR = resourceService.useLogs(exercise.id, uid!);
+
+  if (!isSuccess(logR)) {
+    return <NotSuccess r={logR} />;
+  }
 
   function onCapture(data: any) {
     setPoseCapture(data);
@@ -49,7 +59,8 @@ function PerformExercise({
   return (
     <Grid>
       <Grid item>
-        <Button onClick={onCancel}>Cancel</Button> {exercise.title}
+        <Button onClick={onCancel}>Cancel</Button> {exercise.title} has been
+        performed {logR.data.length} time(s)
       </Grid>
       <Grid item>
         {poseCapture === null ? (
@@ -59,10 +70,35 @@ function PerformExercise({
             onCapture={onCapture}
           />
         ) : (
-          <pre>{JSON.stringify(poseCapture, null, 2)}</pre>
+          <ExerciseResult poseCapture={poseCapture} exercise={exercise} />
         )}
       </Grid>
     </Grid>
+  );
+}
+
+function ExerciseResult({
+  poseCapture,
+  exercise,
+}: {
+  poseCapture: any;
+  exercise: Exercise;
+}) {
+  const { resourceService, authState } = useAppContext();
+  const uid = getUid(authState);
+
+  // type issue: must check uid. note useResource limitation: can't skip queries
+  const logSubmitR = resourceService.useSubmitLog(exercise.id, uid!);
+
+  if (!isSuccess(logSubmitR)) {
+    return <NotSuccess r={logSubmitR} />;
+  }
+
+  return (
+    <>
+      <p>Submitted log ID: {logSubmitR.data.id}</p>
+      <pre>{JSON.stringify(poseCapture, null, 2)}</pre>
+    </>
   );
 }
 

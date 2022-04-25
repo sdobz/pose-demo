@@ -5,11 +5,18 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { useMemo, useState } from "react";
 
-import { AuthService, AuthState } from "../core";
+import { AuthService, AuthState, ResourceService } from "../core";
 import { makeResource } from "./resource";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -62,10 +69,10 @@ export function useFirebase() {
           .then((userCredentials) => {
             console.log("[firebase-auth/core] Authed with", userCredentials);
 
-            // const user = userCredential.user;
             updateAuthState({
               userInfo: {
                 email,
+                uid: userCredentials.user.uid,
               },
             });
           })
@@ -117,13 +124,42 @@ export function useFirebase() {
       );
     }
 
-    function fetchSubmitLog() {
-      return;
+    function fetchSubmitLog(exerciseId: string, uid: string) {
+      return addDoc(collection(db, "log"), {
+        exerciseId,
+        uid,
+        timestamp: new Date(),
+      }).then((docRef) => ({
+        id: docRef.id,
+      }));
+    }
+
+    function fetchLog(exerciseId: string, uid: string) {
+      return getDocs(
+        query(
+          collection(db, "log"),
+          where("exerciseId", "==", exerciseId),
+          where("uid", "==", uid)
+        )
+      ).then((querySnapshot) =>
+        querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          console.log(`[firebase] log: ${doc.id} => ${JSON.stringify(data)}`);
+          return {
+            id: doc.id,
+            exerciseId: data.exerciseId,
+            uid: data.uid,
+            timestamp: data.timestamp,
+          };
+        })
+      );
     }
 
     return {
       useExercises: makeResource("exercises", fetchExercises),
-    };
+      useSubmitLog: makeResource("log-submit", fetchSubmitLog),
+      useLogs: makeResource("log", fetchLog),
+    } as ResourceService;
   }, [app]);
 
   return { authState, authService, resourceService };

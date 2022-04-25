@@ -6,6 +6,13 @@ import { createContext, useContext } from "react";
 
 export interface AuthUser {
   email: string;
+  uid: string;
+}
+
+export function getUid(authState: AuthState): string | null {
+  return authState.userInfo && "uid" in authState.userInfo
+    ? authState.userInfo.uid
+    : null;
 }
 
 // This type CANNOT have both a user and an error
@@ -72,8 +79,17 @@ export interface Exercise {
   title: string;
   id: string;
 }
+export interface Log {
+  id: string;
+  exerciseId: string;
+  uid: string;
+  timestamp: Date;
+}
+
 export interface ResourceService {
   useExercises: ResourceHook<Exercise[], []>;
+  useSubmitLog: ResourceHook<{ id: string }, [exerciseId: string, uid: string]>;
+  useLogs: ResourceHook<Log[], [exerciseId: string, uid: string]>;
 }
 
 // Some nice global state, because yea some state is global

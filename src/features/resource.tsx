@@ -37,6 +37,7 @@ export function NotSuccess({ r, retry }: NotSuccessProps) {
 //   * retrying
 //   * live data
 //   * caching
+//   * skipping queries when data isn't ready
 // A lib like rtk-query supports far more use cases and should be used for production
 export function makeResource<T, A extends any[]>(
   name: string,
