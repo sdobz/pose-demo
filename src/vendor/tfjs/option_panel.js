@@ -80,7 +80,7 @@ export async function setupDatGui(urlParams) {
       }
       break;
     default:
-      alert(`${urlParams.get('model')}`);
+      console.error(`${urlParams.get('model')}`);
       break;
   }
 
@@ -149,7 +149,7 @@ function showModelConfigs(folderController, type) {
       addBlazePoseControllers(folderController, type);
       break;
     default:
-      alert(`Model ${params.STATE.model} is not supported.`);
+      console.error(`Model ${params.STATE.model} is not supported.`);
   }
 }
 

@@ -109,7 +109,7 @@ async function checkGuiUpdate() {
       detector = await createDetector(STATE.model);
     } catch (error) {
       detector = null;
-      alert(error);
+      console.error(error);
     }
 
     STATE.isFlagChanged = false;
@@ -164,7 +164,7 @@ async function renderResult() {
     } catch (error) {
       detector.dispose();
       detector = null;
-      alert(error);
+      console.error(error);
     }
 
     endEstimatePosesStats();
@@ -192,7 +192,7 @@ async function renderPrediction() {
 
 export async function app(urlParams) {
   if (!urlParams.has('model')) {
-    alert('Cannot find model in the query string.');
+    console.error('Cannot find model in the query string.');
     return;
   }
 
