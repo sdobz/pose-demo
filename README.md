@@ -2,6 +2,10 @@
 
 Hello code reviewers! This project is intended to show my coding style and process, as well as to prove that I am able to take high level requirements and translate them into code. This document serves a linear stream of consciousness log describing my thought process.
 
+## Result
+
+This code has been published and is running live: [https://sdobz.github.io/pose-demo/](https://sdobz.github.io/pose-demo/)
+
 ## Requirements
 
 Requirements were transmitted via email as a gdoc and include 6 main features and two technical requirements. I have prioritizerd them, features will be cut from the bottom if time requires:
@@ -171,6 +175,20 @@ A function called `storeLog(uid, logData)` can be created to append data to to t
 
 The exercise page can contain a summary of the exercise log, with a modal to show the full results
 
+### FEATURE 5 FOR REAL
+
+Okay let's do this. First add the `useResource` hook to manage network resources instead of global states. This is a pattern I made up, but have found use elsewhere such as `rtk-query`. It is very limited, but I know the entire use case and it fits.
+
+After that let's loft some state with `AppContext` so that we don't have to punch props through many levels of components.
+
+This code worked essentially first try (once the type checker passed), that's the benefit of a simple program that entirely fits in head.
+
+Okay, now the hard part: submitting data. I wrote the code using the resource system, and it was fast but BOOO HOO security issue!
+
+I really want to do security properly, finding examples...
+
+Eh. Time box reached. Opening up logs to anyone read/write, proper security is an avenue for future exploration
+
 ## Timing
 
 This project is intended to take no more than 4 hours, though I care about quality and will take as long as I need to create a _working_ demonstration. Thus priorities are quality first, then time, then scope.
@@ -189,3 +207,14 @@ This project is intended to take no more than 4 hours, though I care about quali
 - `2022-04-25 - 12:45` - Can't drop this, not good enough. One more hour! `useResource` simplifies network state
 - ` - 13:15` - Finished `useResource` and `AppContext`, starting data submission
 - ` - 13:30` - Finished data submission/retrival code, diagnosing permission issue (oh no)
+- ` - 13:45` - Giving up on proper permissions!
+
+## Conclusion
+
+Yep, it took almost exactly 8 hours but I am happy with the result. None of the code is particularly bad (barring the tfs integration, it has some issues)
+
+This is very much code I'm familiar with, much of the development was as-fast as I can type. I lost quite a bit of time on permissions (around a full hour) which is no surprise.
+
+Honestly, 8 hours is about 7 hours too long for a coding challenge, but it's been ages since I got to slam something out like this and I did end up enjoying myself and proving out some new ideas (feature based organization)
+
+Thanks for your time!
