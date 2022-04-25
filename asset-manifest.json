@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/pose-demo/static/js/main.4e9f47d6.js",
+    "main.js": "/pose-demo/static/js/main.b18a9533.js",
     "index.html": "/pose-demo/index.html",
-    "main.4e9f47d6.js.map": "/pose-demo/static/js/main.4e9f47d6.js.map"
+    "main.b18a9533.js.map": "/pose-demo/static/js/main.b18a9533.js.map"
   },
   "entrypoints": [
-    "static/js/main.4e9f47d6.js"
+    "static/js/main.b18a9533.js"
   ]
 }
