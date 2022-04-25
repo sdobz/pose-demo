@@ -17,20 +17,14 @@ function Publishment() {
 
 export default function App() {
   // This state is shared so it is owned by App
-  const { authState, authService, resourceState, resourceService } =
-    useFirebase();
+  const { authState, authService, resourceService } = useFirebase();
 
   const loggedIn = !!(authState.userInfo && "email" in authState.userInfo);
 
   return (
     <Container maxWidth="sm" sx={{ p: 2, gap: 2 }}>
       <AuthDisplay authState={authState} authService={authService} />
-      {loggedIn ? (
-        <ExerciseManager
-          resourceState={resourceState}
-          resourceService={resourceService}
-        />
-      ) : null}
+      {loggedIn ? <ExerciseManager resourceService={resourceService} /> : null}
       {/* <PoseDetector model="posenet" type={undefined} /> */}
       <Publishment />
     </Container>

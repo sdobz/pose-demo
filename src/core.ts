@@ -25,6 +25,8 @@ export interface AuthService {
   logout: () => void;
 }
 
+export type Fetcher<T, A extends any[]> = (...args: A) => Promise<T>;
+export type ResourceHook<T, A extends any[]> = (...args: A) => Resource<T>;
 export interface Resource<T> {
   data: T | null;
   error: string | null;
@@ -68,9 +70,6 @@ export interface Exercise {
   title: string;
   id: string;
 }
-export interface ResourceState {
-  exercises: Resource<Exercise[]>;
-}
 export interface ResourceService {
-  loadExercises: () => void;
+  useExercises: ResourceHook<Exercise[], []>;
 }

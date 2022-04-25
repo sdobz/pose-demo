@@ -9,17 +9,9 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 import { useMemo, useState } from "react";
 
-import {
-  AuthService,
-  AuthState,
-  ResourceService,
-  ResourceState,
-  Exercise,
-  LOADING_RESOURCE,
-  makeSuccess,
-  PENDING_RESOURCE,
-  makeError,
-} from "../core";
+import { AuthService, AuthState } from "../core";
+import { makeResource } from "./resource";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -107,49 +99,28 @@ export function useFirebase() {
    * ========
    */
 
-  const [resourceState, setResourceState] = useState<ResourceState>({
-    exercises: PENDING_RESOURCE,
-  });
-  function updateResourceState(part: Partial<ResourceState>) {
-    setResourceState((prev) => ({
-      ...prev,
-      ...part,
-    }));
-  }
-
   const resourceService = useMemo(() => {
     const db = getFirestore(app);
 
-    function loadExercises() {
-      if (resourceState.exercises.loading || resourceState.exercises.data) {
-        return;
-      }
-
-      updateResourceState({ exercises: LOADING_RESOURCE });
-      getDocs(collection(db, "exercise"))
-        .then((querySnapshot) => {
-          const exercises = querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            console.log(
-              `[firebase] exercise: ${doc.id} => ${JSON.stringify(data)}`
-            );
-            return {
-              id: doc.id,
-              title: data.title,
-            };
-          });
-          updateResourceState({ exercises: makeSuccess(exercises) });
+    function fetchExercises() {
+      return getDocs(collection(db, "exercise")).then((querySnapshot) =>
+        querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          console.log(
+            `[firebase] exercise: ${doc.id} => ${JSON.stringify(data)}`
+          );
+          return {
+            id: doc.id,
+            title: data.title,
+          };
         })
-        .catch((error) => {
-          console.warn("[firebase] exercise error:", error);
-          updateResourceState({
-            exercises: makeError(error.message),
-          });
-        });
+      );
     }
 
-    return { loadExercises } as ResourceService;
-  }, [app, setResourceState]);
+    return {
+      useExercises: makeResource("exercises", fetchExercises),
+    };
+  }, [app]);
 
-  return { authState, authService, resourceState, resourceService };
+  return { authState, authService, resourceService };
 }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ResourceService, ResourceState, Exercise, isSuccess } from "../core";
+import React, { useState } from "react";
+import { ResourceService, Exercise, isSuccess } from "../core";
 import { NotSuccess } from "./resource";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -8,43 +8,36 @@ import Button from "@mui/material/Button";
 import { PoseDetector } from "./pose-detection";
 
 interface ExerciseProps {
-  resourceState: ResourceState;
   resourceService: ResourceService;
 }
 
-export function ExerciseManager({
-  resourceState,
-  resourceService,
-}: ExerciseProps) {
-  const { exercises } = resourceState;
+export function ExerciseManager({ resourceService }: ExerciseProps) {
+  const exercisesR = resourceService.useExercises();
   const [exerciseId, setExerciseId] = useState<number | null>(null);
 
-  useEffect(() => resourceService.loadExercises(), []);
-  if (!isSuccess(exercises)) {
-    return <NotSuccess r={exercises} retry={resourceService.loadExercises} />;
+  if (!isSuccess(exercisesR)) {
+    return <NotSuccess r={exercisesR} />;
   }
 
-  // Type guards have ensured `.data` is present and defined
-  const exerciseData = exercises.data;
+  // Type guard `isSuccess` has ensured `.data` is present and defined
+  const exercises = exercisesR.data;
 
   return (
     <>
       {exerciseId !== null ? (
         <PerformExercise
-          resourceState={resourceState}
           resourceService={resourceService}
           onCancel={() => setExerciseId(null)}
-          exercise={exerciseData[exerciseId]}
+          exercise={exercises[exerciseId]}
         />
       ) : (
-        <ExerciseList exercises={exerciseData} setExerciseId={setExerciseId} />
+        <ExerciseList exercises={exercises} setExerciseId={setExerciseId} />
       )}
     </>
   );
 }
 
 function PerformExercise({
-  resourceState,
   resourceService,
   onCancel,
   exercise,
