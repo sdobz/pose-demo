@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 import { useMemo, useState } from "react";
 
@@ -115,6 +115,10 @@ export function useFirebase() {
           };
         })
       );
+    }
+
+    function fetchSubmitLog() {
+      return;
     }
 
     return {

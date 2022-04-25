@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { ResourceService, Exercise, isSuccess } from "../core";
-import { NotSuccess } from "./resource";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+
+import { Exercise, isSuccess, useAppContext } from "../core";
+import { NotSuccess } from "./resource";
 import { PoseDetector } from "./pose-detection";
 
-interface ExerciseProps {
-  resourceService: ResourceService;
-}
+interface ExerciseProps {}
 
-export function ExerciseManager({ resourceService }: ExerciseProps) {
+export function ExerciseManager({}: ExerciseProps) {
+  const { resourceService } = useAppContext();
   const exercisesR = resourceService.useExercises();
   const [exerciseId, setExerciseId] = useState<number | null>(null);
 
@@ -26,7 +26,6 @@ export function ExerciseManager({ resourceService }: ExerciseProps) {
     <>
       {exerciseId !== null ? (
         <PerformExercise
-          resourceService={resourceService}
           onCancel={() => setExerciseId(null)}
           exercise={exercises[exerciseId]}
         />
@@ -38,7 +37,6 @@ export function ExerciseManager({ resourceService }: ExerciseProps) {
 }
 
 function PerformExercise({
-  resourceService,
   onCancel,
   exercise,
 }: ExerciseProps & { exercise: Exercise; onCancel: () => void }) {

@@ -2,6 +2,8 @@
  * These types are shared across multiple components and indicate the degree of coupling in this application
  */
 
+import { createContext, useContext } from "react";
+
 export interface AuthUser {
   email: string;
 }
@@ -72,4 +74,17 @@ export interface Exercise {
 }
 export interface ResourceService {
   useExercises: ResourceHook<Exercise[], []>;
+}
+
+// Some nice global state, because yea some state is global
+interface AppContext {
+  authState: AuthState;
+  resourceService: ResourceService;
+}
+
+// @ts-ignore - this runtime fails if no AppContext is Provided, this could be stubbed for a better dev experience
+export const AppContext = createContext<AppContext>();
+
+export function useAppContext() {
+  return useContext(AppContext);
 }

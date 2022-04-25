@@ -6,10 +6,9 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
-import { AuthState, AuthService } from "../core";
+import { AuthState, AuthService, useAppContext } from "../core";
 
 export interface AuthProps {
-  authState: AuthState;
   authService: AuthService;
 }
 
@@ -25,7 +24,8 @@ export function getError(authState: AuthState) {
     : null;
 }
 
-export function AuthDisplay({ authState, authService }: AuthProps) {
+export function AuthDisplay({ authService }: AuthProps) {
+  const { authState } = useAppContext();
   const user = getUser(authState);
   const errorMessage = getError(authState);
 
@@ -37,14 +37,15 @@ export function AuthDisplay({ authState, authService }: AuthProps) {
           <Button onClick={authService.logout}>Logout</Button>
         </Alert>
       ) : (
-        <AuthForm authState={authState} authService={authService} />
+        <AuthForm authService={authService} />
       )}
       {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
     </Box>
   );
 }
 
-export function AuthForm({ authService, authState }: AuthProps) {
+export function AuthForm({ authService }: AuthProps) {
+  const { authState } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

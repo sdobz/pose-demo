@@ -186,3 +186,5 @@ This project is intended to take no more than 4 hours, though I care about quali
 - ` - 18:15` - Finished fetching exercises, really spent too much time here fiddling with Resources. starting capture
 - ` - 19:00` - Finished capturing a pose
 - ` - 19:30` - Typing out notes and adjusting styling
+- `2022-04-25 - 12:45` - Can't drop this, not good enough. One more hour! `useResource` simplifies network state
+- ` - 13:00` - Finished `useResource`, starting data submission
