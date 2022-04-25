@@ -9,7 +9,7 @@ Requirements were transmitted via email as a gdoc and include 6 main features an
 1. Skeletal drawing
 2. See list of exercises
 3. Selection of exercise
-4. User autentication
+4. User authentication
 5. Storage of exercise results
 6. Pose detection
 
@@ -131,7 +131,25 @@ I will encapsulate all state and services in `features/firebase-auth/core.ts` - 
 
 The forms are cribbed from [this example code](https://onestepcode.com/creating-a-material-ui-form/)
 
-This is some nice programming-as-fast-as-I-can-type code
+This is some nice programming-as-fast-as-I-can-type code.
+
+#### Refactors
+
+I spent around an hour twiddling the files and reshaping how they were put together in order to have consice and well organized imports with a clean separation of concerns. It looks simple, but remember **simple is not easy**
+
+### Feature 3: firestore data
+
+Following the [docs example](https://firebase.google.com/docs/firestore/quickstart)
+
+Ugh security rules are hard. Let's start with pure locked, then allow read to the exercises collection
+
+#### The Resource System
+
+I've found it convenient to store network types as "Resources" with a non-overlapping set of states, they cannot be both "error" and "loading" at the same time, then use type discrimination (`x is y`) to distinguish between the states
+
+**speedbump** error: insufficient privileges. How the HECK do I write a security rule for "list" - I must be missing something BASIC, this is one of the core CRUD operations
+
+Well this is embarrassing, I was querying for `exercises` and the collection was named `exercise`. Let's not admit how much time was lost here.
 
 ## Timing
 
@@ -144,3 +162,5 @@ This project is intended to take no more than 4 hours, though I care about quali
 - ` - 13:00` - clone complete, project bootstrapped let's get developing
 - ` - 13:15` - Deployment (in)complete, skipping due to time box. first feature starting
 - ` - 14:45` - Finished embedding pose demo, took 1.5 hrs (not surprising). second feature starting
+- ` - 16:30` - Finished firebase auth. Lots of time spent refactoring to get the service architecture right. third feature!
+- ` - 18:15` - Finished fetching exercises, really spent too much time here

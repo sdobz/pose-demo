@@ -5,10 +5,21 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 import { useMemo, useState } from "react";
 
-import { AuthService, AuthState } from "../core";
+import {
+  AuthService,
+  AuthState,
+  ResourceService,
+  ResourceState,
+  Exercise,
+  LOADING_RESOURCE,
+  makeSuccess,
+  PENDING_RESOURCE,
+  makeError,
+} from "../core";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,6 +41,12 @@ type CreateOrRegister =
   | typeof signInWithEmailAndPassword;
 
 export function useFirebase() {
+  const app = useMemo(() => initializeApp(firebaseConfig), [firebaseConfig]);
+  /**
+   * ====
+   * AUTH
+   * ====
+   */
   const [authState, setAuthState] = useState<AuthState>({ loading: false });
   function updateAuthState(part: Partial<AuthState>) {
     setAuthState((prev) => ({
@@ -39,7 +56,6 @@ export function useFirebase() {
   }
 
   const authService = useMemo(() => {
-    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     // Couldn't help myself with some good ole functional programming
@@ -83,7 +99,57 @@ export function useFirebase() {
       login: handleAuth(signInWithEmailAndPassword),
       logout,
     } as AuthService;
-  }, [firebaseConfig, setAuthState]);
+  }, [app, setAuthState]);
 
-  return { authState, authService };
+  /**
+   * ========
+   * Resource
+   * ========
+   */
+
+  const [resourceState, setResourceState] = useState<ResourceState>({
+    exercises: PENDING_RESOURCE,
+  });
+  function updateResourceState(part: Partial<ResourceState>) {
+    setResourceState((prev) => ({
+      ...prev,
+      ...part,
+    }));
+  }
+
+  const resourceService = useMemo(() => {
+    const db = getFirestore(app);
+
+    function loadExercises() {
+      if (resourceState.exercises.loading || resourceState.exercises.data) {
+        return;
+      }
+
+      updateResourceState({ exercises: LOADING_RESOURCE });
+      getDocs(collection(db, "exercise"))
+        .then((querySnapshot) => {
+          const exercises = querySnapshot.docs.map((doc) => {
+            const data = doc.data();
+            console.log(
+              `[firebase] exercise: ${doc.id} => ${JSON.stringify(data)}`
+            );
+            return {
+              id: doc.id,
+              title: data.title,
+            };
+          });
+          updateResourceState({ exercises: makeSuccess(exercises) });
+        })
+        .catch((error) => {
+          console.warn("[firebase] exercise error:", error);
+          updateResourceState({
+            exercises: makeError(error.message),
+          });
+        });
+    }
+
+    return { loadExercises } as ResourceService;
+  }, [app, setResourceState]);
+
+  return { authState, authService, resourceState, resourceService };
 }

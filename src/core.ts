@@ -24,3 +24,53 @@ export interface AuthService {
   login: AuthFunc;
   logout: () => void;
 }
+
+export interface Resource<T> {
+  data: T | null;
+  error: string | null;
+  loading: boolean;
+}
+export interface SuccessResource<T> extends Resource<T> {
+  data: T;
+}
+export function isSuccess<T>(r: Resource<T>): r is SuccessResource<T> {
+  return r.data !== null;
+}
+
+export const PENDING_RESOURCE: Resource<any> = {
+  data: null,
+  error: null,
+  loading: false,
+};
+export const LOADING_RESOURCE: Resource<any> = {
+  data: null,
+  error: null,
+  loading: true,
+};
+
+export function makeError(error: string): Resource<any> {
+  return {
+    data: null,
+    error,
+    loading: false,
+  };
+}
+
+export function makeSuccess<T>(data: T): SuccessResource<T> {
+  return {
+    data,
+    error: null,
+    loading: false,
+  };
+}
+
+export interface Exercise {
+  title: string;
+  id: string;
+}
+export interface ResourceState {
+  exercises: Resource<Exercise[]>;
+}
+export interface ResourceService {
+  loadExercises: () => void;
+}

@@ -5,10 +5,11 @@ import Link from "@mui/material/Link";
 import { PoseDetector } from "./features/pose-detection";
 import { useFirebase } from "./features/firebase";
 import { AuthDisplay } from "./features/authentication";
+import { ExerciseSelector } from "./features/exercise";
 
 function Publishment() {
   return (
-    <Box sx={{ my: 2 }}>
+    <Box>
       See <Link href="https://github.com/sdobz/pose-demo">the source code</Link>
     </Box>
   );
@@ -16,15 +17,22 @@ function Publishment() {
 
 export default function App() {
   // This state is shared so it is owned by App
-  const { authState, authService } = useFirebase();
+  const { authState, authService, resourceState, resourceService } =
+    useFirebase();
+
+  const loggedIn = !!(authState.userInfo && "email" in authState.userInfo);
 
   return (
-    <Container maxWidth="sm" sx={{ p: 2 }}>
+    <Container maxWidth="sm" sx={{ p: 2, gap: 2 }}>
       <AuthDisplay authState={authState} authService={authService} />
+      {loggedIn ? (
+        <ExerciseSelector
+          resourceState={resourceState}
+          resourceService={resourceService}
+        />
+      ) : null}
       {/* <PoseDetector model="posenet" type={undefined} /> */}
-      <Box sx={{ my: 4 }}>
-        <Publishment />
-      </Box>
+      <Publishment />
     </Container>
   );
 }
